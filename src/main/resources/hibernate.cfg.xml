@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Driver -->
+        <property name="hibernate.connection.driver_class">
+            com.mysql.cj.jdbc.Driver
+        </property>
+
+        <!-- URL -->
+        <property name="hibernate.connection.url">
+            jdbc:mysql://localhost:3306/Poliservice
+        </property>
+
+        <!-- Usuario -->
+        <property name="hibernate.connection.username">
+            root
+        </property>
+
+        <!-- Contraseña -->
+        <property name="hibernate.connection.password">
+            12345
+        </property>
+
+        <!-- Dialecto -->
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+
+        <!--  update -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Mostrar SQL -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Mapear clases -->
+        <mapping class="modelo.Usuario"/>
+
+    </session-factory>
+</hibernate-configuration>
