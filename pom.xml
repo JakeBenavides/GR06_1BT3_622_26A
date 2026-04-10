@@ -1,16 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/maven-v4_0_0.xsd">
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
   <artifactId>GR06_1BT23622_26A</artifactId>
-  <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
 
   <name>GR06 Proyecto Web</name>
+
+  <!-- 🔹 Recomendado -->
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <dependencies>
 
@@ -47,14 +54,36 @@
     <dependency>
       <groupId>jakarta.servlet.jsp</groupId>
       <artifactId>jakarta.servlet.jsp-api</artifactId>
-      <version>3.0.0</version>
+      <version>3.1.0</version>
       <scope>provided</scope>
+    </dependency>
+
+    <!-- JSTL API -->
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
+    <!-- JSTL IMPLEMENTACIÓN -->
+    <dependency>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+      <version>3.0.1</version>
     </dependency>
 
   </dependencies>
 
   <build>
     <finalName>GR06_1BT23622_26A</finalName>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+      </plugin>
+    </plugins>
   </build>
 
 </project>
