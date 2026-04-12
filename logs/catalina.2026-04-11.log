@@ -1,0 +1,40 @@
+11-Apr-2026 15:26:28.299 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nombre de la versión del servidor: Apache Tomcat/11.0.21
+11-Apr-2026 15:26:28.301 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:                      Mar 30 2026 14:59:44 UTC
+11-Apr-2026 15:26:28.302 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Número de versión de servidor:     11.0.21.0
+11-Apr-2026 15:26:28.302 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:                           Windows 11
+11-Apr-2026 15:26:28.302 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Versión de Systema Operativo:      10.0
+11-Apr-2026 15:26:28.302 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Arquitectura:                      amd64
+11-Apr-2026 15:26:28.302 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:                         C:\Users\gabye\.jdks\openjdk-26
+11-Apr-2026 15:26:28.302 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:                       26+35-2893
+11-Apr-2026 15:26:28.302 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Vededor JVM:                       Oracle Corporation
+11-Apr-2026 15:26:28.303 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:                     C:\Sexto Semestre\Metodologías Ágiles\Proyecto\Codigo
+11-Apr-2026 15:26:28.303 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:                     C:\Program Files\JavaFX\apache-tomcat-11.0.21
+11-Apr-2026 15:26:28.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             --add-opens=java.base/java.lang=ALL-UNNAMED
+11-Apr-2026 15:26:28.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             --add-opens=java.base/java.io=ALL-UNNAMED
+11-Apr-2026 15:26:28.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             --add-opens=java.base/java.util=ALL-UNNAMED
+11-Apr-2026 15:26:28.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+11-Apr-2026 15:26:28.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+11-Apr-2026 15:26:28.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -Dcatalina.home=C:\Program Files\JavaFX\apache-tomcat-11.0.21
+11-Apr-2026 15:26:28.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -Dcatalina.base=C:\Sexto Semestre\Metodologías Ágiles\Proyecto\Codigo
+11-Apr-2026 15:26:28.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -Djava.io.tmpdir=C:\Sexto Semestre\Metodologías Ágiles\Proyecto\Codigo\temp
+11-Apr-2026 15:26:28.317 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -Djava.util.logging.config.file=C:\Sexto Semestre\Metodologías Ágiles\Proyecto\Codigo\conf\logging.properties
+11-Apr-2026 15:26:28.317 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+11-Apr-2026 15:26:28.317 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2026.1\lib\idea_rt.jar=62489
+11-Apr-2026 15:26:28.317 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -Dfile.encoding=UTF-8
+11-Apr-2026 15:26:28.317 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -Dsun.stdout.encoding=UTF-8
+11-Apr-2026 15:26:28.317 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument:             -Dsun.stderr.encoding=UTF-8
+11-Apr-2026 15:26:28.326 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Cargada la biblioteca nativa APR de Apache Tomcat [2.0.14] con la versión APR [1.7.6].
+11-Apr-2026 15:26:28.342 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL inicializado correctamente [OpenSSL 3.5.5 27 Jan 2026]
+11-Apr-2026 15:26:28.696 INFO [main] org.apache.coyote.AbstractProtocol.init Inicializando el manejador de protocolo ["http-nio-8080"]
+
+11-Apr-2026 15:26:28.715 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [650] milliseconds
+11-Apr-2026 15:26:28.775 INFO [main] org.apache.catalina.core.StandardService.startInternal Arrancando servicio [Catalina]
+11-Apr-2026 15:26:28.775 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.21]
+11-Apr-2026 15:26:28.787 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Desplieque del descriptor de configuración [C:\Sexto Semestre\Metodologías Ágiles\Proyecto\Codigo\conf\Catalina\localhost\GR06_1BT3_622_26A.xml]
+11-Apr-2026 15:26:29.143 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [C:\Sexto Semestre\Metodologías Ágiles\Proyecto\Codigo\conf\Catalina\localhost\GR06_1BT3_622_26A.xml] has finished in [348] ms
+11-Apr-2026 15:26:29.150 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+11-Apr-2026 15:26:29.181 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [464] milliseconds
+11-Apr-2026 15:26:38.433 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+11-Apr-2026 15:26:38.438 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Parando servicio [Catalina]
+11-Apr-2026 15:26:38.448 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+11-Apr-2026 15:26:38.452 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
