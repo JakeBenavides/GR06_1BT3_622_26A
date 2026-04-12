@@ -37,3 +37,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+work/
+temp/
+logs/
+webapps/}
+
+.smarttomcat/
+conf/
