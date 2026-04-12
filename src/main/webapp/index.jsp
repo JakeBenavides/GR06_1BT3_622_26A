@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Prueba Hibernate</title>
-</head>
-<body>
-
-<h2>Guardar Usuario</h2>
-
-<form action="guardarUsuario" method="post">
-    Nombre: <input type="text" name="nombre" required>
-    <br><br>
-    <button type="submit">Guardar</button>
-</form>
-
-</body>
-</html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    if (session != null && session.getAttribute("usuarioActual") != null) {
+        response.sendRedirect(request.getContextPath() + "/home");
+    } else {
+        response.sendRedirect(request.getContextPath() + "/login");
+    }
+%>
