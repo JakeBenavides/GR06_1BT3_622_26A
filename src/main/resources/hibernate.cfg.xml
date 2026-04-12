@@ -13,7 +13,6 @@
         </property>
 
         <property name="hibernate.connection.username">root</property>
-
         <property name="hibernate.connection.password">12345</property>
 
         <!-- Dialecto MySQL 8 -->
@@ -21,17 +20,19 @@
             org.hibernate.dialect.MySQLDialect
         </property>
 
-        <!-- NO recrear tablas, solo actualizar si faltan columnas -->
+        <!-- Actualizar tablas automáticamente si faltan columnas -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Mostrar SQL en consola (útil para depurar) -->
+        <!-- SQL en consola para depurar -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
         <!-- Entidades mapeadas -->
         <mapping class="modelo.Usuario"/>
-        <mapping class="modelo.Servicio"/>
         <mapping class="modelo.Categoria"/>
+        <mapping class="modelo.Servicio"/>
+        <mapping class="modelo.Solicitud"/>
+        <mapping class="modelo.Calificacion"/>
 
     </session-factory>
 </hibernate-configuration>
