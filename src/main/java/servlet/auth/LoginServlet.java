@@ -6,9 +6,11 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.*;
 
 import modelo.Usuario;
+import util.GestorSesion;
 
 import java.io.IOException;
 import java.util.Optional;
+
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -19,8 +21,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("usuarioActual") != null) {
+        if (GestorSesion.estaAutenticado(request)) { // EXTRACT CLASS
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
@@ -45,11 +46,7 @@ public class LoginServlet extends HttpServlet {
         Optional<Usuario> resultado = usuarioDAO.login(correo, contrasena);
 
         if (resultado.isPresent()) {
-            Usuario usuario = resultado.get();
-            HttpSession session = request.getSession();
-            session.setAttribute("usuarioActual", usuario);
-            session.setAttribute("rolActual", usuario.getRol().name());
-            session.setMaxInactiveInterval(30 * 60);
+            GestorSesion.iniciarSesion(request, resultado.get()); // EXTRACT CLASS
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
             request.setAttribute("error", "Correo o contraseña incorrectos.");
