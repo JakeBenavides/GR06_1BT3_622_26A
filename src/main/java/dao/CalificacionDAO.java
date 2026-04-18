@@ -37,14 +37,19 @@ public class CalificacionDAO {
     }
 
     // CONTROL DUPLICIDAD - del diagrama de secuencia: verifica si usuario ya calificó ese servicio
+    // ── SUBSTITUTE ALGORITHM ──────────────────────────────────────────────────
+    // Algoritmo anterior: SELECT COUNT → Long → verificar count != null && count > 0
+    // Algoritmo nuevo:    SELECT directo con LIMIT 1 → verificar si la lista está vacía
+    // Mismo resultado (boolean), pero elimina el null-check y es semánticamente más claro.
     public boolean yaCalifico(Usuario usuario, Servicio servicio) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT COUNT(c) FROM Calificacion c WHERE c.usuario = :usuario AND c.servicio = :servicio";
-            Long count = session.createQuery(hql, Long.class)
+            String hql = "FROM Calificacion c WHERE c.usuario = :usuario AND c.servicio = :servicio";
+            return !session.createQuery(hql, Calificacion.class)
                     .setParameter("usuario", usuario)
                     .setParameter("servicio", servicio)
-                    .uniqueResult();
-            return count != null && count > 0;
+                    .setMaxResults(1)
+                    .getResultList()
+                    .isEmpty();
         } catch (Exception e) {
             throw new RuntimeException("Error al verificar calificación duplicada", e);
         }

@@ -58,6 +58,13 @@ public class Servicio {
         this.estado                  = EstadoServicio.ACTIVO;
     }
 
+    // ── MOVE METHOD ───────────────────────────────────────────────────────────
+    // Movido desde DetalleServicioServlet y SolicitarServicioServlet:
+    // la lógica que compara IDs de usuario pertenece al modelo, no al controlador.
+    public boolean esPropietario(Usuario usuario) {
+        return this.usuario.getIdUsuario() == usuario.getIdUsuario();
+    }
+
     public void publicarServicio() {
         this.estado = EstadoServicio.ACTIVO;
         this.disponibilidad = true;

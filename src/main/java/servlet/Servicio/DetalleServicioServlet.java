@@ -10,6 +10,7 @@ import jakarta.servlet.*;
 import modelo.Calificacion;
 import modelo.Servicio;
 import modelo.Usuario;
+import util.GestorSesion;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,14 +48,14 @@ public class DetalleServicioServlet extends HttpServlet {
             }
 
             Servicio servicio = optServicio.get();
-            Usuario usuarioActual = (Usuario) req.getSession(false).getAttribute("usuarioActual");
+            Usuario usuarioActual = GestorSesion.getUsuarioActual(req); // EXTRACT CLASS
 
             // Calificaciones del servicio para mostrar en detalle
             List<Calificacion> calificaciones = calificacionDAO.listarPorServicio(servicio);
             Double promedio = calificacionDAO.obtenerPromedio(servicio);
 
             // Flags útiles para la vista (controlar qué botones mostrar)
-            boolean esMiServicio    = servicio.getUsuario().getIdUsuario() == usuarioActual.getIdUsuario();
+            boolean esMiServicio    = servicio.esPropietario(usuarioActual); // MOVE METHOD
             boolean yaSolicite      = solicitudDAO.existeSolicitud(usuarioActual, servicio);
             boolean yaCalifico      = calificacionDAO.yaCalifico(usuarioActual, servicio);
 
