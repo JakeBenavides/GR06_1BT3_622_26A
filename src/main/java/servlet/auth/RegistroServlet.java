@@ -7,7 +7,6 @@ import jakarta.servlet.*;
 
 import modelo.Usuario;
 import modelo.types.Rol;
-import util.GestorSesion;
 
 import java.io.IOException;
 
@@ -20,7 +19,8 @@ public class RegistroServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (GestorSesion.estaAutenticado(request)) { // EXTRACT CLASS
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("usuarioActual") != null) {
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
@@ -39,40 +39,41 @@ public class RegistroServlet extends HttpServlet {
         String confirmar  = request.getParameter("confirmar")  != null ? request.getParameter("confirmar").trim()  : "";
 
         if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
-            reenviarConError(request, response, "Todos los campos son obligatorios.", null, null);
+            request.setAttribute("error", "Todos los campos son obligatorios.");
+            request.getRequestDispatcher("/WEB-INF/jsp/auth/register.jsp").forward(request, response);
             return;
         }
 
         if (!contrasena.equals(confirmar)) {
-            reenviarConError(request, response, "Las contraseñas no coinciden.", nombre, correo);
+            request.setAttribute("error", "Las contraseñas no coinciden.");
+            request.setAttribute("nombre", nombre);
+            request.setAttribute("correo", correo);
+            request.getRequestDispatcher("/WEB-INF/jsp/auth/register.jsp").forward(request, response);
             return;
         }
 
         if (contrasena.length() < 6) {
-            reenviarConError(request, response, "La contraseña debe tener al menos 6 caracteres.", nombre, correo);
+            request.setAttribute("error", "La contraseña debe tener al menos 6 caracteres.");
+            request.setAttribute("nombre", nombre);
+            request.setAttribute("correo", correo);
+            request.getRequestDispatcher("/WEB-INF/jsp/auth/register.jsp").forward(request, response);
             return;
         }
 
         if (usuarioDAO.existeCorreo(correo)) {
-            reenviarConError(request, response, "El correo ya está registrado.", nombre, null);
+            request.setAttribute("error", "El correo ya está registrado.");
+            request.setAttribute("nombre", nombre);
+            request.getRequestDispatcher("/WEB-INF/jsp/auth/register.jsp").forward(request, response);
             return;
         }
 
         Usuario usuario = new Usuario(nombre, correo, contrasena, Rol.ESTUDIANTE);
         usuarioDAO.guardar(usuario);
 
-        GestorSesion.iniciarSesion(request, usuario); // EXTRACT CLASS
-        response.sendRedirect(request.getContextPath() + "/home");
-    }
+        HttpSession session = request.getSession();
+        session.setAttribute("usuarioActual", usuario);
+        session.setAttribute("rolActual", usuario.getRol().name());
 
-    // ── EXTRACT METHOD ────────────────────────────────────────────────────────
-    // Centraliza el patrón repetido: setear error + (opcionalmente nombre/correo) + forward al registro
-    private void reenviarConError(HttpServletRequest request, HttpServletResponse response,
-                                  String error, String nombre, String correo)
-            throws ServletException, IOException {
-        request.setAttribute("error", error);
-        if (nombre != null) request.setAttribute("nombre", nombre);
-        if (correo  != null) request.setAttribute("correo",  correo);
-        request.getRequestDispatcher("/WEB-INF/jsp/auth/register.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 }
