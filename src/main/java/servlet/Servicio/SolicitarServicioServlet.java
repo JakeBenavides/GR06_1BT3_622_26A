@@ -9,6 +9,7 @@ import jakarta.servlet.*;
 import modelo.Servicio;
 import modelo.Solicitud;
 import modelo.Usuario;
+import util.GestorSesion;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -49,10 +50,10 @@ public class SolicitarServicioServlet extends HttpServlet {
             }
 
             Servicio servicio = opt.get();
-            Usuario usuarioActual = (Usuario) req.getSession(false).getAttribute("usuarioActual");
+            Usuario usuarioActual = GestorSesion.getUsuarioActual(req); // EXTRACT CLASS
 
             // No puede solicitar su propio servicio
-            if (servicio.getUsuario().getIdUsuario() == usuarioActual.getIdUsuario()) {
+            if (servicio.esPropietario(usuarioActual)) { // MOVE METHOD
                 req.setAttribute("error", "No puedes solicitar tu propio servicio.");
                 req.setAttribute("servicio", servicio);
                 req.getRequestDispatcher("/WEB-INF/jsp/servicio/detalle.jsp").forward(req, resp);
@@ -78,7 +79,7 @@ public class SolicitarServicioServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
         String idStr = req.getParameter("idServicio");
-        Usuario usuarioActual = (Usuario) req.getSession(false).getAttribute("usuarioActual");
+        Usuario usuarioActual = GestorSesion.getUsuarioActual(req); // EXTRACT CLASS
 
         // ── ControlValidacion: validar datos ─────────────────────────────────
         if (idStr == null || idStr.isEmpty()) {
@@ -105,7 +106,7 @@ public class SolicitarServicioServlet extends HttpServlet {
         Servicio servicio = opt.get();
 
         // Validar que no sea su propio servicio
-        if (servicio.getUsuario().getIdUsuario() == usuarioActual.getIdUsuario()) {
+        if (servicio.esPropietario(usuarioActual)) { // MOVE METHOD
             req.getSession().setAttribute("mensajeError", "No puedes solicitar tu propio servicio.");
             resp.sendRedirect(req.getContextPath() + "/servicio/detalle?id=" + idServicio);
             return;
