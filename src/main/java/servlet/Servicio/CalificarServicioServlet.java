@@ -11,6 +11,7 @@ import modelo.Calificacion;
 import modelo.Servicio;
 import modelo.Solicitud;
 import modelo.Usuario;
+import util.GestorSesion;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,7 +57,7 @@ public class CalificarServicioServlet extends HttpServlet {
             }
 
             Servicio servicio = opt.get();
-            Usuario usuarioActual = (Usuario) req.getSession(false).getAttribute("usuarioActual");
+            Usuario usuarioActual = GestorSesion.getUsuarioActual(req); // EXTRACT CLASS
 
             // ── ControlDuplicidad: verifica si ya calificó ────────────────────
             // (paso 3 del diagrama de secuencia "Calificar Servicio")
