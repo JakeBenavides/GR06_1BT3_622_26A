@@ -10,7 +10,7 @@ import jakarta.servlet.*;
 import modelo.Servicio;
 import modelo.Solicitud;
 import modelo.Usuario;
-import servicio.NotificacionService;
+import servlet.Servicio.NotificacionService;
 import util.GestorSesion;
 
 import java.io.IOException;

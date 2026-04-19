@@ -8,7 +8,6 @@
     <PostResources base="C:/Users/gabye/.m2/repository/org/hibernate/common/hibernate-commons-annotations/6.0.6.Final/hibernate-commons-annotations-6.0.6.Final.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/hibernate-commons-annotations-6.0.6.Final.jar"/>
     <PostResources base="C:/Users/gabye/.m2/repository/io/smallrye/jandex/3.1.2/jandex-3.1.2.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jandex-3.1.2.jar"/>
     <PostResources base="C:/Users/gabye/.m2/repository/com/fasterxml/classmate/1.5.1/classmate-1.5.1.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/classmate-1.5.1.jar"/>
-    <PostResources base="C:/Users/gabye/.m2/repository/net/bytebuddy/byte-buddy/1.14.11/byte-buddy-1.14.11.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/byte-buddy-1.14.11.jar"/>
     <PostResources base="C:/Users/gabye/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.0/jakarta.xml.bind-api-4.0.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jakarta.xml.bind-api-4.0.0.jar"/>
     <PostResources base="C:/Users/gabye/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.0/jakarta.activation-api-2.1.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jakarta.activation-api-2.1.0.jar"/>
     <PostResources base="C:/Users/gabye/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.2/jaxb-runtime-4.0.2.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jaxb-runtime-4.0.2.jar"/>
@@ -24,5 +23,6 @@
     <PostResources base="C:/Users/gabye/.m2/repository/jakarta/servlet/jsp/jstl/jakarta.servlet.jsp.jstl-api/3.0.0/jakarta.servlet.jsp.jstl-api-3.0.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jakarta.servlet.jsp.jstl-api-3.0.0.jar"/>
     <PostResources base="C:/Users/gabye/.m2/repository/jakarta/el/jakarta.el-api/5.0.0/jakarta.el-api-5.0.0.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jakarta.el-api-5.0.0.jar"/>
     <PostResources base="C:/Users/gabye/.m2/repository/org/glassfish/web/jakarta.servlet.jsp.jstl/3.0.1/jakarta.servlet.jsp.jstl-3.0.1.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jakarta.servlet.jsp.jstl-3.0.1.jar"/>
+    <PostResources base="C:/Users/gabye/.m2/repository/net/bytebuddy/byte-buddy/1.15.10/byte-buddy-1.15.10.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/byte-buddy-1.15.10.jar"/>
   </Resources>
 </Context>
