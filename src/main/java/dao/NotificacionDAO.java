@@ -7,10 +7,11 @@ import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 import java.util.List;
+import java.util.Optional;
 
 public class NotificacionDAO {
 
-    // 🔥 GUARDAR
+    // GUARDAR
     public void guardar(Notificacion notificacion) {
         Transaction tx = null;
 
@@ -27,7 +28,7 @@ public class NotificacionDAO {
         }
     }
 
-    // 🔥 LISTAR POR USUARIO
+    // LISTAR POR USUARIO
     public List<Notificacion> listarPorUsuario(Usuario usuario) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -42,7 +43,16 @@ public class NotificacionDAO {
         }
     }
 
-    // 🔥 MARCAR COMO LEÍDA
+    // BUSCAR POR ID
+    public Optional<Notificacion> buscarPorId(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return Optional.ofNullable(session.get(Notificacion.class, id));
+        } catch (Exception e) {
+            throw new RuntimeException("Error al buscar notificación por id", e);
+        }
+    }
+
+    // MARCAR COMO LEÍDA
     public void marcarLeida(Notificacion notificacion) {
         Transaction tx = null;
 
