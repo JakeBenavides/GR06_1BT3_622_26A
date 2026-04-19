@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class CategoriaDAO {
 
-    // 🔥 LISTAR TODAS
+    // LISTAR TODAS
     public List<Categoria> listarTodas() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -24,7 +24,7 @@ public class CategoriaDAO {
         }
     }
 
-    // 🔥 BUSCAR POR ID
+    // BUSCAR POR ID
     public Optional<Categoria> buscarPorId(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -36,7 +36,7 @@ public class CategoriaDAO {
         }
     }
 
-    // 🔥 GUARDAR
+    // GUARDAR
     public void guardar(Categoria categoria) {
         Transaction tx = null;
 
@@ -53,7 +53,7 @@ public class CategoriaDAO {
         }
     }
 
-    // 🔥 ACTUALIZAR
+    // ACTUALIZAR
     public void actualizar(Categoria categoria) {
         Transaction tx = null;
 
@@ -70,7 +70,7 @@ public class CategoriaDAO {
         }
     }
 
-    // 🔥 ELIMINAR
+    // ELIMINAR
     public void eliminar(Categoria categoria) {
         Transaction tx = null;
 

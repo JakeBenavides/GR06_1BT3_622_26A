@@ -32,6 +32,7 @@
         <mapping class="modelo.Categoria"/>
         <mapping class="modelo.Servicio"/>
         <mapping class="modelo.Solicitud"/>
+        <mapping class="modelo.Notificacion"/>
         <mapping class="modelo.Calificacion"/>
 
     </session-factory>

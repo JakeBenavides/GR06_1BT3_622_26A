@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class NotificacionDAO {
 
-    // 🔥 GUARDAR
+    // GUARDAR
     public void guardar(Notificacion notificacion) {
         Transaction tx = null;
 
@@ -28,7 +28,7 @@ public class NotificacionDAO {
         }
     }
 
-    // 🔥 LISTAR POR USUARIO
+    // LISTAR POR USUARIO
     public List<Notificacion> listarPorUsuario(Usuario usuario) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -43,7 +43,7 @@ public class NotificacionDAO {
         }
     }
 
-    // 🔥 BUSCAR POR ID
+    // BUSCAR POR ID
     public Optional<Notificacion> buscarPorId(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return Optional.ofNullable(session.get(Notificacion.class, id));
@@ -52,7 +52,7 @@ public class NotificacionDAO {
         }
     }
 
-    // 🔥 MARCAR COMO LEÍDA
+    // MARCAR COMO LEÍDA
     public void marcarLeida(Notificacion notificacion) {
         Transaction tx = null;
 

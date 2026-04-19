@@ -11,6 +11,24 @@
         <c:if test="${not empty sessionScope.usuarioActual}">
             <a href="${pageContext.request.contextPath}/servicio/publicar">Publicar servicio</a>
             <a href="${pageContext.request.contextPath}/servicio/mis-solicitudes">Mis solicitudes</a>
+            <%-- Enlace a notificaciones con badge de no leídas --%>
+            <a href="${pageContext.request.contextPath}/notificaciones"
+               style="position:relative;display:inline-flex;align-items:center;gap:.3rem">
+                🔔 Notificaciones
+                <c:if test="${not empty sessionScope.notifNoLeidas and sessionScope.notifNoLeidas > 0}">
+                    <span style="
+                        background:var(--accent);
+                        color:#fff;
+                        font-size:.65rem;
+                        font-weight:700;
+                        padding:.1rem .4rem;
+                        border-radius:999px;
+                        line-height:1.4;
+                        min-width:1.2rem;
+                        text-align:center;
+                    ">${sessionScope.notifNoLeidas}</span>
+                </c:if>
+            </a>
             <span class="text-muted" style="font-size:.85rem">
                 Hola, <strong>${sessionScope.usuarioActual.nombre}</strong>
             </span>

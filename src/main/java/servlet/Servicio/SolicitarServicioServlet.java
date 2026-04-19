@@ -1,5 +1,6 @@
 package servlet.Servicio;
 
+import dao.NotificacionDAO;
 import dao.ServicioDAO;
 import dao.SolicitudDAO;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import jakarta.servlet.*;
 import modelo.Servicio;
 import modelo.Solicitud;
 import modelo.Usuario;
+import servlet.Servicio.NotificacionService;
 import util.GestorSesion;
 
 import java.io.IOException;
@@ -23,8 +25,9 @@ import java.util.Optional;
 @WebServlet("/servicio/solicitar")
 public class SolicitarServicioServlet extends HttpServlet {
 
-    private final ServicioDAO servicioDAO  = new ServicioDAO();
-    private final SolicitudDAO solicitudDAO = new SolicitudDAO();
+    private final ServicioDAO        servicioDAO        = new ServicioDAO();
+    private final SolicitudDAO       solicitudDAO       = new SolicitudDAO();
+    private final NotificacionService notificacionService = new NotificacionService(new NotificacionDAO());
 
     /**
      * GET: muestra el formulario de confirmación de solicitud
@@ -122,6 +125,10 @@ public class SolicitarServicioServlet extends HttpServlet {
         // ── ControlSolicitud: registrarSolicitud() ───────────────────────────
         Solicitud solicitud = new Solicitud(usuarioActual, servicio);
         solicitudDAO.guardar(solicitud);
+
+        // REFACTOR (FASE GREEN→REFACTOR): llamada al NotificacionService
+        // para notificar al proveedor que alguien solicitó su servicio.
+        notificacionService.notificarSolicitudRecibida(solicitud);
 
         // Mensaje: "Solicitud enviada" — del diagrama de secuencia paso 11
         req.getSession().setAttribute("mensajeExito", "¡Solicitud enviada correctamente!");

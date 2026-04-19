@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class ServicioDAO {
 
-    // 🔥 PUBLICAR (INSERT)
+    // PUBLICAR (INSERT)
     public void guardar(Servicio servicio) {
         Transaction tx = null;
 
@@ -29,7 +29,7 @@ public class ServicioDAO {
         }
     }
 
-    // 🔥 LISTAR SERVICIOS ACTIVOS
+    //LISTAR SERVICIOS ACTIVOS
     public List<Servicio> listarActivos() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -44,7 +44,7 @@ public class ServicioDAO {
         }
     }
 
-    // 🔥 BUSCAR POR PALABRA CLAVE
+    //BUSCAR POR PALABRA CLAVE
     public List<Servicio> buscarPorPalabraClave(String keyword) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -64,7 +64,7 @@ public class ServicioDAO {
         }
     }
 
-    // 🔥 LISTAR POR USUARIO
+    // LISTAR POR USUARIO
     public List<Servicio> listarPorUsuario(Usuario usuario) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -79,7 +79,7 @@ public class ServicioDAO {
         }
     }
 
-    // 🔥 BUSCAR POR ID
+    // BUSCAR POR ID
     public Optional<Servicio> buscarPorId(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -91,7 +91,7 @@ public class ServicioDAO {
         }
     }
 
-    // 🔥 ACTUALIZAR
+    //ACTUALIZAR
     public void actualizar(Servicio servicio) {
         Transaction tx = null;
 
@@ -108,7 +108,7 @@ public class ServicioDAO {
         }
     }
 
-    // 🔥 ELIMINAR
+    // ELIMINAR
     public void eliminar(Servicio servicio) {
         Transaction tx = null;
 

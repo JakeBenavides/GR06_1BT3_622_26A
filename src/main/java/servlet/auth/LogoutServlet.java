@@ -5,6 +5,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.*;
 
 import java.io.IOException;
+import util.GestorSesion;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
@@ -13,10 +14,7 @@ public class LogoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
+        GestorSesion.cerrarSesion(request); // EXTRACT CLASS
         response.sendRedirect(request.getContextPath() + "/login");
     }
 
