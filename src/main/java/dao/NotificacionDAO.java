@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 import java.util.List;
+import java.util.Optional;
 
 public class NotificacionDAO {
 
@@ -39,6 +40,15 @@ public class NotificacionDAO {
 
         } catch (Exception e) {
             throw new RuntimeException("Error al listar notificaciones", e);
+        }
+    }
+
+    // 🔥 BUSCAR POR ID
+    public Optional<Notificacion> buscarPorId(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return Optional.ofNullable(session.get(Notificacion.class, id));
+        } catch (Exception e) {
+            throw new RuntimeException("Error al buscar notificación por id", e);
         }
     }
 
