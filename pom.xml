@@ -72,6 +72,37 @@
       <version>3.0.1</version>
     </dependency>
 
+    <!-- ===== TESTING ===== -->
+
+    <!-- JUnit 5 -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Mockito + integración JUnit 5 -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>5.11.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Byte Buddy actualizado (soporte Java 26) — sobreescribe el transitivo de Mockito/Hibernate -->
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <version>1.15.10</version>
+    </dependency>
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy-agent</artifactId>
+      <version>1.15.10</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -82,6 +113,25 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.3.2</version>
+      </plugin>
+
+      <!-- Plugin necesario para ejecutar tests JUnit 5 con Maven -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <!-- Necesario para que Mockito/Byte-Buddy funcione con Java 26 -->
+          <argLine>
+            -XX:+EnableDynamicAgentLoading
+            -Dnet.bytebuddy.experimental=true
+            -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.15.10/byte-buddy-agent-1.15.10.jar
+            -Dmockito.mock.maker=subclass
+          </argLine>
+        </configuration>
       </plugin>
     </plugins>
   </build>
