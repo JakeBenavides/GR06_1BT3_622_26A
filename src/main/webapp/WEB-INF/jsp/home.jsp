@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio — PoliServis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
@@ -23,15 +24,25 @@
 
     <%-- Hero banner EPN --%>
     <div class="hero-banner">
+        <div class="hero-stripe"></div>
         <div class="epn-tag">Escuela Politécnica Nacional</div>
         <h1>Hola, <c:choose>
             <c:when test="${not empty sessionScope.usuarioActual}">${sessionScope.usuarioActual.nombre}</c:when>
             <c:otherwise>estudiante</c:otherwise>
         </c:choose> 👋</h1>
         <p>Explora los servicios que tus compañeros de la EPN tienen para ofrecerte, o publica los tuyos.</p>
-        <a href="${pageContext.request.contextPath}/servicio/publicar" class="btn btn-accent">
-            + Publicar mi servicio
-        </a>
+        <c:choose>
+            <c:when test="${not empty sessionScope.usuarioActual}">
+                <a href="${pageContext.request.contextPath}/servicio/publicar" class="btn btn-accent">
+                    + Publicar mi servicio
+                </a>
+            </c:when>
+            <c:otherwise>
+                <a href="#" class="btn btn-accent req-auth">
+                    + Publicar mi servicio
+                </a>
+            </c:otherwise>
+        </c:choose>
     </div>
 
     <%-- Barra de búsqueda --%>
@@ -57,9 +68,18 @@
                 <div class="icon">📭</div>
                 <h3>Aún no hay servicios publicados</h3>
                 <p class="mt-1">¡Sé el primero en ofrecer un servicio a tus compañeros!</p>
-                <a href="${pageContext.request.contextPath}/servicio/publicar" class="btn btn-primary mt-2">
-                    Publicar servicio
-                </a>
+                <c:choose>
+                    <c:when test="${not empty sessionScope.usuarioActual}">
+                        <a href="${pageContext.request.contextPath}/servicio/publicar" class="btn btn-primary mt-2">
+                            Publicar servicio
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="#" class="btn btn-primary mt-2 req-auth">
+                            Publicar servicio
+                        </a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </c:when>
         <c:otherwise>

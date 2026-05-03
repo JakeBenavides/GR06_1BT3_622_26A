@@ -10,7 +10,9 @@
         <a href="${pageContext.request.contextPath}/servicio/buscar">Buscar</a>
         <c:if test="${not empty sessionScope.usuarioActual}">
             <a href="${pageContext.request.contextPath}/servicio/publicar">Publicar servicio</a>
+            <a href="${pageContext.request.contextPath}/servicio/mis-servicios">Mis servicios</a>
             <a href="${pageContext.request.contextPath}/servicio/mis-solicitudes">Mis solicitudes</a>
+            <a href="${pageContext.request.contextPath}/chat">Chat</a>
             <%-- Enlace a notificaciones con badge de no leídas --%>
             <a href="${pageContext.request.contextPath}/notificaciones"
                style="position:relative;display:inline-flex;align-items:center;gap:.3rem">
@@ -42,3 +44,47 @@
         </c:if>
     </div>
 </nav>
+
+<!-- Modal de Autenticación para Invitados -->
+<c:if test="${empty sessionScope.usuarioActual}">
+    <div id="authModal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:2rem; border-radius:8px; max-width:400px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
+            <h2 style="margin-top:0; color:var(--text-main);">Inicia Sesión</h2>
+            <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Debes iniciar sesión para realizar esta acción.</p>
+            <form action="${pageContext.request.contextPath}/login" method="post">
+                <input type="email" name="correo" placeholder="Correo institucional" required class="form-control mb-2" style="width:100%;">
+                <input type="password" name="contrasena" placeholder="Contraseña" required class="form-control mb-2" style="width:100%;">
+                <button type="submit" class="btn btn-primary btn-full mb-1">Entrar</button>
+                <a href="${pageContext.request.contextPath}/register" class="btn btn-outline btn-full text-center" style="display:block; text-align:center;">Registrarse</a>
+                <button type="button" id="closeModalBtn" class="btn btn-sm mt-2" style="width:100%; background:transparent; border:none; color:var(--text-secondary);">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var modal = document.getElementById("authModal");
+            var closeBtn = document.getElementById("closeModalBtn");
+
+            // Cerrar modal
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Interceptar clicks en elementos que requieren autenticación
+            var reqAuthElements = document.querySelectorAll(".req-auth");
+            reqAuthElements.forEach(function(el) {
+                el.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    modal.style.display = "flex";
+                });
+            });
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
+</c:if>
