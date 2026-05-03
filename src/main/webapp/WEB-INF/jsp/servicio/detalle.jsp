@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${servicio.tituloServicio} — PoliServis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
@@ -130,11 +131,19 @@
 
                         <%-- Puede solicitar --%>
                         <c:otherwise>
-                            <%-- Botón solicitar — lleva al flujo Solicitar Servicio --%>
-                            <a href="${pageContext.request.contextPath}/servicio/solicitar?id=${servicio.idServicio}"
-                               class="btn btn-primary btn-full mt-2">
-                                Solicitar servicio
-                            </a>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.usuarioActual}">
+                                    <a href="${pageContext.request.contextPath}/servicio/solicitar?id=${servicio.idServicio}"
+                                       class="btn btn-primary btn-full mt-2">
+                                        Solicitar servicio
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="#" class="btn btn-primary btn-full mt-2 req-auth">
+                                        Solicitar servicio
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -149,6 +158,23 @@
                         <p class="text-muted">${proveedor.correo}</p>
                         <c:if test="${not empty proveedor.descripcionPerfil}">
                             <p class="mt-1" style="font-size:.87rem">${proveedor.descripcionPerfil}</p>
+                        </c:if>
+
+                        <%-- Botón contactar proveedor por chat --%>
+                        <c:if test="${not esMiServicio}">
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.usuarioActual}">
+                                    <a href="${pageContext.request.contextPath}/chat?userId=${proveedor.idUsuario}&servicioId=${servicio.idServicio}"
+                                       class="btn btn-outline btn-full mt-2" style="display:flex; align-items:center; justify-content:center; gap:.4rem;">
+                                        💬 Contactar proveedor
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="#" class="btn btn-outline btn-full mt-2 req-auth" style="display:flex; align-items:center; justify-content:center; gap:.4rem;">
+                                        💬 Contactar proveedor
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
                         </c:if>
                     </div>
                 </div>
