@@ -124,4 +124,50 @@ public class ServicioDAO {
             throw new RuntimeException("Error al eliminar servicio", e);
         }
     }
+
+    // ELIMINAR CON DEPENDENCIAS (calificaciones, solicitudes, conversaciones primero)
+    public void eliminarConDependencias(Servicio servicio) {
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+
+            int idServicio = servicio.getIdServicio();
+
+            // 1. Eliminar mensajes de conversaciones de este servicio
+            session.createMutationQuery(
+                            "DELETE FROM Mensaje m WHERE m.conversacion IN " +
+                                    "(SELECT c FROM Conversacion c WHERE c.servicio.idServicio = :id)")
+                    .setParameter("id", idServicio)
+                    .executeUpdate();
+
+            // 2. Eliminar conversaciones del servicio
+            session.createMutationQuery(
+                            "DELETE FROM Conversacion c WHERE c.servicio.idServicio = :id")
+                    .setParameter("id", idServicio)
+                    .executeUpdate();
+
+            // 3. Eliminar calificaciones del servicio
+            session.createMutationQuery(
+                            "DELETE FROM Calificacion cal WHERE cal.servicio.idServicio = :id")
+                    .setParameter("id", idServicio)
+                    .executeUpdate();
+
+            // 4. Eliminar solicitudes del servicio
+            session.createMutationQuery(
+                            "DELETE FROM Solicitud s WHERE s.servicio.idServicio = :id")
+                    .setParameter("id", idServicio)
+                    .executeUpdate();
+
+            // 5. Finalmente eliminar el servicio
+            Servicio managed = session.get(Servicio.class, idServicio);
+            if (managed != null) {
+                session.remove(managed);
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            throw new RuntimeException("Error al eliminar servicio con dependencias", e);
+        }
+    }
 }
