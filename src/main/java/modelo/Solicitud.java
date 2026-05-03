@@ -26,6 +26,10 @@ public class Solicitud {
     @JoinColumn(name = "id_servicio")
     private Servicio servicio;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado")
+    private modelo.types.EstadoSolicitud estado;
+
     // Constructor vacío
     public Solicitud() {}
 
@@ -34,6 +38,7 @@ public class Solicitud {
         this.usuario = usuario;
         this.servicio = servicio;
         this.fechaSolicitud = new Date();
+        this.estado = modelo.types.EstadoSolicitud.SOLICITADO;
     }
 
     // getters y setters
@@ -49,4 +54,7 @@ public class Solicitud {
 
     public Servicio getServicio() { return servicio; }
     public void setServicio(Servicio servicio) { this.servicio = servicio; }
+
+    public modelo.types.EstadoSolicitud getEstado() { return estado; }
+    public void setEstado(modelo.types.EstadoSolicitud estado) { this.estado = estado; }
 }
