@@ -7,7 +7,7 @@ services:
     image: mysql:8.3
     container_name: poliservis-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: poliservis
     ports:
       - "3307:3306"
@@ -17,7 +17,7 @@ services:
     networks:
       - poliservis-net
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p12345"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p1234"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -35,6 +35,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: poliservis
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
     networks:
       - poliservis-net
 
