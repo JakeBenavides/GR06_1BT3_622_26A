@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis solicitudes — PoliServis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
@@ -14,11 +15,11 @@
 <%@ include file="../navbar.jsp" %>
 
 <div class="container">
-
-    <div class="page-header">
-        <h1>Mis servicios solicitados</h1>
-        <p>Servicios que has contratado — desde aquí puedes calificarlos</p>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>Mis Servicios Solicitados</h2>
+        <a href="${pageContext.request.contextPath}/servicio/solicitudes-recibidas" class="btn btn-outline btn-sm">Ver solicitudes recibidas</a>
     </div>
+    <p>Servicios que has contratado — desde aquí puedes calificarlos y comunicarte</p>
 
     <%-- Mensajes de sesión --%>
     <c:if test="${not empty sessionScope.mensajeExito}">
@@ -61,9 +62,15 @@
                             <span class="precio">
                                 $<fmt:formatNumber value="${sol.servicio.precioServicio}" pattern="0.00"/>
                             </span>
-                            <%-- Botón calificar — punto de entrada al flujo Calificar Servicio --%>
-                            <a href="${pageContext.request.contextPath}/servicio/calificar?id=${sol.servicio.idServicio}"
-                               class="btn btn-accent btn-sm">⭐ Calificar</a>
+                            <div>
+                                <span class="badge ${sol.estado == 'SOLICITADO' ? 'badge-primary' : (sol.estado == 'EN_PROGRESO' ? 'badge-accent' : 'badge-secondary')} mb-1" style="display:inline-block;">
+                                    ${sol.estado}
+                                </span><br>
+                                <a href="${pageContext.request.contextPath}/servicio/detalle?id=${sol.servicio.idServicio}" class="btn btn-primary btn-sm mt-1">Ver servicio</a>
+                                <a href="${pageContext.request.contextPath}/chat?userId=${sol.servicio.usuario.idUsuario}&servicioId=${sol.servicio.idServicio}" class="btn btn-outline btn-sm mt-1">Chat proveedor</a>
+                                <a href="${pageContext.request.contextPath}/servicio/calificar?id=${sol.servicio.idServicio}"
+                                   class="btn btn-accent btn-sm mt-1">⭐ Calificar</a>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>
