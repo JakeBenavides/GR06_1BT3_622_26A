@@ -1,0 +1,5 @@
+# Forzar finales de línea LF para los scripts de Jenkins y Maven
+# Esto evita que Git en Windows los convierta a CRLF y rompa el contenedor
+jenkins_data/tools/**/bin/* text eol=lf
+Jenkinsfile text eol=lf
+*.sh text eol=lf
