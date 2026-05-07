@@ -35,7 +35,7 @@ pipeline {
         // ─── 3. Test (Compilacion) ───────────────────────────────────
         stage('Test') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn -B -ntp clean compile'
                 echo "Codigo compilado correctamente"
             }
         }
@@ -43,7 +43,7 @@ pipeline {
         // ─── 4. Verify CI (Ejecucion de Tests) ───────────────────────
         stage('Verify CI') {
             steps {
-                sh 'mvn test'
+                sh 'mvn -B -ntp test'
             }
             post {
                 always {
@@ -56,28 +56,9 @@ pipeline {
         // ─── 5. Package ──────────────────────────────────────────────
         stage('Package') {
             steps {
-                sh 'mvn package -DskipTests'
+                sh 'mvn -B -ntp package -DskipTests'
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
                 echo "WAR generado y archivado"
-            }
-        }
-
-        // ─── 6. Docker Build ─────────────────────────────────────────
-        stage('Docker Build') {
-            steps {
-                script {
-                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-                    sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
-                    echo "Imagen Docker construida: ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                }
-            }
-        }
-
-        // ─── 7. Deploy ───────────────────────────────────────────────
-        stage('Deploy') {
-            steps {
-                sh 'docker-compose up -d'
-                echo "Despliegue completado con docker-compose"
             }
         }
     }
