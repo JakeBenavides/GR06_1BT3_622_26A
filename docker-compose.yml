@@ -1,62 +1,40 @@
+name: poliservis-gr06
 version: '3.8'
 
 services:
 
-  # ─── Base de datos MySQL ─────────────────────────────────────────────────────
-  db:
-    image: mysql:8.3
-    container_name: poliservis-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 12345
-      MYSQL_DATABASE: poliservis
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - poliservis-net
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p12345"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 20s
-
-  # ─── Aplicación PoliServis (Tomcat) ──────────────────────────────────────────
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: poliservis-app:latest
+    image: jimmynow/uniservicios:latest
     container_name: poliservis-app
     ports:
       - "8085:8080"
-    depends_on:
-      db:
-        condition: service_healthy
+    environment:
+      MYSQL_HOST: poli-servis-jimmyarias772.g.aivencloud.com
+      MYSQL_PORT: 13512
+      MYSQL_DATABASE: defaultdb
+      MYSQL_USER: avnadmin
+      MYSQL_PASSWORD: AVNS_z0fh2LSeHStzFyIugpo
     networks:
       - poliservis-net
 
-  # ─── Jenkins ─────────────────────────────────────────────────────────────────
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    image: jimmynow/uniservicios-jenkins:latest
     container_name: poliservis-jenkins
     user: root
     ports:
       - "8082:8080"
       - "50000:50000"
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
+    environment:
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
-      - ./jenkins_data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - poliservis-net
-
-volumes:
-  mysql-data:
+    restart: unless-stopped
 
 networks:
   poliservis-net:

@@ -19,8 +19,8 @@
         <div class="hero-stripe"></div>
         <div class="epn-tag">${categoria.nombre}</div>
         <h1 style="font-size: 2.5rem;">${servicio.tituloServicio}</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9;">Publicado por 
-            <a href="${pageContext.request.contextPath}/vendedor/perfil?id=${proveedor.idUsuario}" 
+        <p style="font-size: 1.1rem; opacity: 0.9;">Publicado por
+            <a href="${pageContext.request.contextPath}/vendedor/perfil?id=${proveedor.idUsuario}"
                style="color: white; text-decoration: underline; font-weight: 700;">
                 ${proveedor.nombre}
             </a>
@@ -28,16 +28,16 @@
     </div>
 
     <div class="grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-top: 2rem;">
-        
+
         <div class="main-content">
             <div class="card mb-3" style="padding: 0; overflow: hidden;">
                 <c:choose>
                     <c:when test="${not empty servicio.fotoUrl}">
-                        <img src="${pageContext.request.contextPath}/uploads/servicios/${servicio.fotoUrl}" 
+                        <img src="${pageContext.request.contextPath}/uploads/servicios/${servicio.fotoUrl}"
                              alt="${servicio.tituloServicio}" style="width: 100%; max-height: 400px; object-fit: cover;">
                     </c:when>
                     <c:otherwise>
-                        <img src="${pageContext.request.contextPath}/img/no-image.png" 
+                        <img src="${pageContext.request.contextPath}/img/no-image.png"
                              alt="Sin imagen" style="width: 100%; max-height: 300px; object-fit: cover; opacity: 0.5;">
                     </c:otherwise>
                 </c:choose>
