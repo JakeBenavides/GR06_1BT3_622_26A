@@ -61,6 +61,28 @@ pipeline {
                 echo "WAR generado y archivado"
             }
         }
+
+        // ─── 6. Docker Build & Push ──────────────────────────────────
+        stage('Docker Build') {
+            steps {
+                script {
+                    echo "Construyendo imagen Docker..."
+                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                    sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
+                }
+            }
+        }
+
+        // ─── 7. Deploy ───────────────────────────────────────────────
+        stage('Deploy') {
+            steps {
+                script {
+                    echo "Desplegando aplicacion..."
+                    // Reiniciar el contenedor de la app usando la nueva imagen
+                    sh "docker-compose up -d --build app"
+                }
+            }
+        }
     }
 
     post {
