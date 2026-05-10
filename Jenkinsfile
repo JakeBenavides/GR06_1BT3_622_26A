@@ -6,9 +6,8 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE       = 'jimmynow/uniservicios'
-        DOCKER_TAG         = "${BUILD_NUMBER}"
-        DOCKER_CREDENTIALS = credentials('dockerhub-credentials')
+        DOCKER_IMAGE = 'jimmynow/uniservicios'
+        DOCKER_TAG   = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -61,42 +60,6 @@ pipeline {
                 echo "WAR generado y archivado"
             }
         }
-
-        // ─── 6. Docker Build & Push ──────────────────────────────────
-        stage('Docker Build') {
-            steps {
-                script {
-                    echo "Construyendo imagen Docker..."
-                    sh "echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin"
-                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-                    sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
-                    echo "Subiendo imagen a Docker Hub..."
-                    sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    sh "docker push ${DOCKER_IMAGE}:latest"
-                }
-            }
-        }
-
-        // ─── 7. Deploy ───────────────────────────────────────────────
-        stage('Deploy') {
-            steps {
-                script {
-                    echo "Desplegando aplicacion..."
-                    sh "docker rm -f poliservis-app || true"
-                    sh """docker run -d \
-                        --name poliservis-app \
-                        -p 8085:8080 \
-                        --network poliservis-net \
-                        -e MYSQL_HOST=poli-servis-jimmyarias772.g.aivencloud.com \
-                        -e MYSQL_PORT=13512 \
-                        -e MYSQL_DATABASE=defaultdb \
-                        -e MYSQL_USER=avnadmin \
-                        -e MYSQL_PASSWORD=AVNS_z0fh2LSeHStzFyIugpo \
-                        --restart unless-stopped \
-                        ${DOCKER_IMAGE}:${DOCKER_TAG}"""
-                }
-            }
-        }
     }
 
     post {
@@ -105,9 +68,6 @@ pipeline {
         }
         failure {
             echo "Pipeline #${BUILD_NUMBER} FALLO — Revisar logs"
-        }
-        always {
-            cleanWs()
         }
     }
 }
