@@ -6,13 +6,14 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'jimmynow/uniservicios'
-        DOCKER_TAG   = "${BUILD_NUMBER}"
+        DOCKER_IMAGE       = 'jimmynow/uniservicios'
+        DOCKER_TAG         = "${BUILD_NUMBER}"
+        DOCKER_CREDENTIALS = credentials('dockerhub-credentials')
     }
 
     stages {
 
-        // ─── 1. Checkout con fix de saltos de linea ─────────────────
+        // ─── 1. Checkout ─────────────────────────────────────────────
         stage('Checkout') {
             steps {
                 checkout scm
@@ -47,7 +48,6 @@ pipeline {
             }
             post {
                 always {
-                    // Esto genera la retroalimentacion de "Passed/Failed" en la UI de Jenkins
                     junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: true
                 }
             }
@@ -67,8 +67,12 @@ pipeline {
             steps {
                 script {
                     echo "Construyendo imagen Docker..."
+                    sh "echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin"
                     sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                     sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
+                    echo "Subiendo imagen a Docker Hub..."
+                    sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_IMAGE}:latest"
                 }
             }
         }
@@ -78,8 +82,18 @@ pipeline {
             steps {
                 script {
                     echo "Desplegando aplicacion..."
-                    // Reiniciar el contenedor de la app usando la nueva imagen
-                    sh "docker-compose up -d --build app"
+                    sh "docker rm -f poliservis-app || true"
+                    sh """docker run -d \
+                        --name poliservis-app \
+                        -p 8085:8080 \
+                        --network poliservis-net \
+                        -e MYSQL_HOST=poli-servis-jimmyarias772.g.aivencloud.com \
+                        -e MYSQL_PORT=13512 \
+                        -e MYSQL_DATABASE=defaultdb \
+                        -e MYSQL_USER=avnadmin \
+                        -e MYSQL_PASSWORD=AVNS_z0fh2LSeHStzFyIugpo \
+                        --restart unless-stopped \
+                        ${DOCKER_IMAGE}:${DOCKER_TAG}"""
                 }
             }
         }
