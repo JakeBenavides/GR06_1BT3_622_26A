@@ -1,4 +1,4 @@
-ppackage servlet.Servicio;
+package servlet.Servicio;
 
 import dao.ServicioDAO;
 import dao.CategoriaDAO;
