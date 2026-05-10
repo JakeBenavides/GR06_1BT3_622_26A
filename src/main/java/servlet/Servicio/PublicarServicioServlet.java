@@ -1,4 +1,4 @@
-package servlet.Servicio;
+ppackage servlet.Servicio;
 
 import dao.ServicioDAO;
 import dao.CategoriaDAO;
@@ -73,10 +73,9 @@ public class PublicarServicioServlet extends HttpServlet {
             }
 
             try {
-                String uploadPath = getServletContext().getRealPath("/uploads/servicios/");
-                fotoUrl = ImagenUtil.guardarImagen(filePart, uploadPath);
+                fotoUrl = ImagenUtil.convertirABase64(filePart);
             } catch (IOException e) {
-                request.setAttribute("error", "Error al guardar la imagen: " + e.getMessage());
+                request.setAttribute("error", "Error al procesar la imagen: " + e.getMessage());
                 request.setAttribute("categorias", categoriaDAO.listarTodas());
                 request.getRequestDispatcher("/WEB-INF/jsp/servicio/publicar.jsp").forward(request, response);
                 return;
@@ -139,3 +138,4 @@ public class PublicarServicioServlet extends HttpServlet {
         }
     }
 }
+
