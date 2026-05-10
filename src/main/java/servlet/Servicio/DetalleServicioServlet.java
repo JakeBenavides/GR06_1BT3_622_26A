@@ -16,11 +16,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Muestra el detalle de un servicio.
- * Trazabilidad: punto de entrada para Solicitar y Calificar servicio.
- * GET /servicio/detalle?id=X
- */
 @WebServlet("/servicio/detalle")
 public class DetalleServicioServlet extends HttpServlet {
 
@@ -48,14 +43,12 @@ public class DetalleServicioServlet extends HttpServlet {
             }
 
             Servicio servicio = optServicio.get();
-            Usuario usuarioActual = GestorSesion.getUsuarioActual(req); // EXTRACT CLASS
+            Usuario usuarioActual = GestorSesion.getUsuarioActual(req);
 
-            // Calificaciones del servicio para mostrar en detalle
             List<Calificacion> calificaciones = calificacionDAO.listarPorServicio(servicio);
-            Double promedio = calificacionDAO.obtenerPromedio(servicio);
+            Double promedio = calificacionDAO.calcularPromedioPorServicio(servicio);
 
-            // Flags útiles para la vista (controlar qué botones mostrar)
-            boolean esMiServicio    = servicio.esPropietario(usuarioActual); // MOVE METHOD
+            boolean esMiServicio    = servicio.esPropietario(usuarioActual);
             boolean yaSolicite      = solicitudDAO.existeSolicitud(usuarioActual, servicio);
             boolean yaCalifico      = calificacionDAO.yaCalifico(usuarioActual, servicio);
 
