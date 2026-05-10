@@ -33,7 +33,7 @@ public class Servicio {
     @Column(name = "estado")
     private EstadoServicio estado;
 
-    @Column(name = "foto_url", length = 255)
+    @Column(name = "foto_url", columnDefinition = "LONGTEXT")
     private String fotoUrl;
 
     // RELACIÓN CON USUARIO (proveedor)
@@ -62,6 +62,8 @@ public class Servicio {
     }
 
     // ── MOVE METHOD ───────────────────────────────────────────────────────────
+    // Movido desde DetalleServicioServlet y SolicitarServicioServlet:
+    // la lógica que compara IDs de usuario pertenece al modelo, no al controlador.
     public boolean esPropietario(Usuario usuario) {
         return this.usuario.getIdUsuario() == usuario.getIdUsuario();
     }
@@ -76,25 +78,35 @@ public class Servicio {
         this.disponibilidad = nuevoEstado == EstadoServicio.ACTIVO;
     }
 
-    // getters y setters
+    // ── getters y setters ─────────────────────────────────────
+
     public int getIdServicio() { return idServicio; }
     public void setIdServicio(int idServicio) { this.idServicio = idServicio; }
+
     public String getTituloServicio() { return tituloServicio; }
     public void setTituloServicio(String tituloServicio) { this.tituloServicio = tituloServicio; }
+
     public String getDescripcionServicio() { return descripcionServicio; }
     public void setDescripcionServicio(String descripcionServicio) { this.descripcionServicio = descripcionServicio; }
+
     public double getPrecioServicio() { return precioServicio; }
     public void setPrecioServicio(double precioServicio) { this.precioServicio = precioServicio; }
+
     public boolean isDisponibilidad() { return disponibilidad; }
     public void setDisponibilidad(boolean disponibilidad) { this.disponibilidad = disponibilidad; }
+
     public Date getFechaPublicacionServicio() { return fechaPublicacionServicio; }
     public void setFechaPublicacionServicio(Date fechaPublicacionServicio) { this.fechaPublicacionServicio = fechaPublicacionServicio; }
+
     public EstadoServicio getEstado() { return estado; }
     public void setEstado(EstadoServicio estado) { this.estado = estado; }
+
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+
     public Categoria getCategoria() { return categoria; }
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+
     public String getFotoUrl() { return fotoUrl; }
     public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
 }
