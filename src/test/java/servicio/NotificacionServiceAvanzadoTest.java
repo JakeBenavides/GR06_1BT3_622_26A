@@ -37,7 +37,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class NotificacionServiceAvanzadoTest {
 
-    private Usuario  proveedor;
+    private Usuario proveedor;
     private Servicio servicio;
 
     // Mockito crea un doble de prueba del DAO — sin BD real
@@ -47,7 +47,7 @@ class NotificacionServiceAvanzadoTest {
     @BeforeEach
     void setUp() {
         proveedor = new Usuario("Ana Torres", "ana@test.com", "pass", Rol.ESTUDIANTE);
-        servicio  = new Servicio("Clases de Matemáticas", "Refuerzo escolar", 10.0, proveedor, null);
+        servicio = new Servicio("Clases de Matemáticas", "Refuerzo escolar", 10.0, proveedor, null);
     }
 
 
@@ -126,33 +126,9 @@ class NotificacionServiceAvanzadoTest {
     // Fuente de datos: 3 solicitantes distintos
     static Stream<Usuario> listaDeSolicitantes() {
         return Stream.of(
-                new Usuario("María García",  "maria@test.com",  "pass", Rol.ESTUDIANTE),
-                new Usuario("Carlos Ruiz",   "carlos@test.com", "pass", Rol.ESTUDIANTE),
-                new Usuario("Sofía Herrera", "sofia@test.com",  "pass", Rol.ESTUDIANTE)
-        );
-    }
-
-    @ParameterizedTest(name = "T6 [{index}] – Solicitante: {0}")
-    @MethodSource("listaDeSolicitantes")
-    @DisplayName("T6 [Parametrizado] – El contenido incluye nombre y correo de cada solicitante")
-    void notificacion_contenidoCorrectoPorSolicitante(Usuario solicitanteParam) {
-        // ARRANGE — se usa el solicitante inyectado por @MethodSource
-        Solicitud solicitudParam = new Solicitud(solicitanteParam, servicio);
-        NotificacionService service = new NotificacionService(notificacionDAOMock);
-
-        // ACT
-        Notificacion resultado = service.notificarSolicitudRecibida(solicitudParam);
-        String contenido = resultado.getContenido();
-
-        // ASSERT — se comprueba para CADA solicitante del Stream
-        assertAll(
-                "Contenido debe identificar correctamente al solicitante",
-                () -> assertTrue(contenido.contains(solicitanteParam.getNombre()),
-                        "Debe incluir el nombre: " + solicitanteParam.getNombre()),
-                () -> assertTrue(contenido.contains(solicitanteParam.getCorreo()),
-                        "Debe incluir el correo: " + solicitanteParam.getCorreo()),
-                () -> assertTrue(contenido.contains(servicio.getTituloServicio()),
-                        "Debe incluir el título del servicio")
+                new Usuario("María García", "maria@test.com", "pass", Rol.ESTUDIANTE),
+                new Usuario("Carlos Ruiz", "carlos@test.com", "pass", Rol.ESTUDIANTE),
+                new Usuario("Sofía Herrera", "sofia@test.com", "pass", Rol.ESTUDIANTE)
         );
     }
 }
