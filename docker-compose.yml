@@ -33,6 +33,7 @@ services:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./jenkins_data:/var/jenkins_home
     networks:
       - poliservis-net
     restart: unless-stopped
